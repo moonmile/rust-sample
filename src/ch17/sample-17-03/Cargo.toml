@@ -1,12 +1,9 @@
 [package]
-name = "sample-15-02"
+name = "sample-17-03"
 version = "0.1.0"
-authors = ["masuda"]
+authors = ["Tomoaki Masuda <masuda@moonmile.net>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-
 [dependencies]
-sqlite = "0.25.0"
-
