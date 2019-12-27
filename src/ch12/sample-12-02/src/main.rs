@@ -2,12 +2,19 @@ use std::fs::File;
 use std::io::Write;
 
 fn main() {
+    // 1バイトずつ書き出す
     let path = "sample.txt" ;
     let mut file = File::create( path )
         .expect("file not found.");
     let s = "hello rust world.\n";
-    file.write(s.as_bytes())
-        .expect("cannot write.");
+    for it in s.as_bytes() {
+        file.write(&[*it])
+            .expect("cannot write.");
+        let ch = *it ;   // 実体を取得
+        let ary = [ch];  // 配列に直す
+        file.write(&ary) // 参照を渡す 
+            .expect("cannot write.");
+    }
 }
 
 
