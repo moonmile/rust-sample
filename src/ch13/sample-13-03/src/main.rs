@@ -1,6 +1,5 @@
-
 fn main() {
-    go3();
+    go1();
 }
 
 // main 関数で panic する
