@@ -1,20 +1,20 @@
-extern crate reqwest;
-extern crate serde_json;
 
-fn _main() -> Result<(), Box<dyn std::error::Error>> {
+#[tokio::main]
+async fn main1() -> Result<(), Box<dyn std::error::Error>> {
     let url = "http://openccpm.com/redmine/projects.json";
     println!("call {}", url );
-    let mut res = reqwest::get( url )? ;
-    let body = res.text()? ;
+    let res = reqwest::get( url ).await? ;
+    let body = res.text().await? ;
     println!("response is \n{}", body );
     Ok(())
 }
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let url = "http://openccpm.com/redmine/projects.json";
     println!("call {}", url );
-    let mut res = reqwest::get( url )? ;
-    let body = res.text()? ;
+    let res = reqwest::get( url ).await? ;
+    let body = res.text().await? ;
     let json: serde_json::Value = serde_json::from_str(&body)? ;
     let projects = json["projects"].as_array().unwrap() ;
     // println!("projects is {:#?}", projects );
