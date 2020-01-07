@@ -1,32 +1,41 @@
-use sqlite::State ;
+use rusqlite::{params, Connection, Result};
 
-fn main() -> sqlite::Result<()> {
+#[derive(Debug)]
+struct User {
+    id: i32,
+    name: String,
+    age: i32,
+}
+
+fn main() -> Result<()> {
     // パラメータで分岐
     let args = std::env::args().collect::<Vec<String>>();
-    let cn = sqlite::open("sample.db")? ;
+    let cn = Connection::open("sample.db")?;
     if args.len() <= 1 {
         // 一覧を表示
-        let mut cursor = cn
-            .prepare("SELECT * FROM users")?.cursor() ;
-        while let Some(row) = cursor.next()? {
-            println!("name = {}, age = {}", 
-                row[0].as_string().unwrap(),
-                row[1].as_integer().unwrap());
+        let mut stmt = cn.prepare("SELECT * FROM users")? ;
+        for it in stmt.query_map(params![], |row| {
+            Ok(User{
+                id: row.get(0)?,
+                name: row.get(1)?,
+                age: row.get(2)?,
+            })
+        })? {
+            println!("user is {:?}", it.unwrap());
         }
     } else {
         match args[1].as_str() {
             "init" => {
-                let cn = sqlite::open("sample.db")? ;
-                cn.execute("CREATE TABLE users (name TEXT, age INTEGER);")? ;
+                cn.execute("CREATE TABLE users (id INTEGER, name TEXT, age INTEGER)", params![] )?;
                 println!("create database." );
             },
             "into" => {
                 // データ挿入
-                let name = &args[2];
-                let age: i64 = args[3].parse::<i64>().unwrap() ;
-                let sql = format!(
-                    "INSERT INTO users (name, age) VALUES ('{}', {});", name, age) ;
-                cn.execute( sql )? ;
+                let id: i32 = args[2].parse::<i32>().unwrap() ;
+                let name = &args[3];
+                let age: i32 = args[4].parse::<i32>().unwrap() ;
+                let mut stmt = cn.prepare("INSERT INTO users (id, name, age) VALUES (?1, ?2, ?3)")?;
+                stmt.execute(params![id, name, age])?;
                 println!("insert data." );
             },
             _ => {
