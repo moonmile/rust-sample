@@ -1,12 +1,10 @@
-
 async fn foo(id: i32) {
     for i in 1..10 {
         println!("hi number {} in foo({}).", i, id);
         std::thread::sleep(std::time::Duration::from_millis(1000));
     }
 }
-
-fn main1() {
+fn main() {
     let task = async {
         foo(10).await ;
         foo(20).await ;
@@ -69,7 +67,7 @@ async fn foo(id: i32) {
 */
 
 #[tokio::main]
-async fn main() {
+async fn main6() {
     println!("program start.");
     foo(10).await ;
     foo(20).await ;
@@ -77,7 +75,7 @@ async fn main() {
     println!("program end.");
 }
 
-fn main6() {
+fn main7() {
     let mut rt = tokio::runtime::Runtime::new().unwrap();
     println!("program start.");
     rt.block_on(async {
