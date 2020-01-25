@@ -1,10 +1,8 @@
 // Person 構造体
 #[derive(Debug)]
 struct Person {
-    id: i32,
     name: &'static str,
     age: i32,
-    addr: &'static str,
 }
 // Person 構造体を借用(borrow)する
 fn print_a( a: &Person ) {
@@ -20,9 +18,8 @@ fn add_age( a: &mut Person ) {
     println!("a.age is {}", a.age ) ;
 }
 
-fn main1() {
-    let a = Person { 
-        id: 100, name: "masuda", age: 50, addr: "Tokyo" };
+fn main() {
+    let a = Person { name: "masuda", age: 50 };
     // 借用させる
     print_a( &a );
     // 変数aは main に残ったまま
@@ -30,8 +27,7 @@ fn main1() {
 }
 
 fn main2() {
-    let a = Person { 
-        id: 100, name: "masuda", age: 50, addr: "Tokyo" };
+    let a = Person { name: "masuda", age: 50 };
     // 所有権を move する
     move_a( a );
     // 所有権は print_x に移るので、ここでは使えない
@@ -39,8 +35,7 @@ fn main2() {
 }
 
 fn main3() {
-    let a = Person { 
-        id: 100, name: "masuda", age: 50, addr: "Tokyo" };
+    let a = Person { name: "masuda", age: 50 };
     // 変数xに参照（借用）させる
     let x = &a ;
     // 変数a,xの両方が使える
@@ -51,8 +46,7 @@ fn main3() {
 }
 
 fn main4() {
-    let a = Person { 
-        id: 100, name: "masuda", age: 50, addr: "Tokyo" };
+    let a = Person { name: "masuda", age: 50 };
     // 変数xに所有権をmoveする
     let x = a ;
     // 変数aは使えない
@@ -68,8 +62,7 @@ fn main4() {
 
 fn main5() {
     // 可変の変数aを作る
-    let mut a = Person { 
-        id: 100, name: "masuda", age: 50, addr: "Tokyo" };
+    let mut a = Person { name: "masuda", age: 50 };
 
     println!("a is {:?}", a );
     // add_age関数に参照を渡す
@@ -80,8 +73,7 @@ fn main5() {
 
 fn main6() {
     // 可変の変数aを作る
-    let mut a = Person { 
-        id: 100, name: "masuda", age: 50, addr: "Tokyo" };
+    let a = Person { name: "masuda", age: 50 };
     // 所有権を変数xに移す
     let mut x = a ;
     println!("x is {:?}", x );
@@ -96,8 +88,7 @@ fn main6() {
 
 fn main7() {
     // 可変の変数aを作る
-    let a = Person { 
-        id: 100, name: "masuda", age: 50, addr: "Tokyo" };
+    let a = Person { name: "masuda", age: 50 };
     // 変数xを可変で参照しようとする
     let mut x = &a ;
     println!("x is {:?}", x );
@@ -108,8 +99,7 @@ fn main7() {
 
 fn main8() {
     // 可変の変数aを作る
-    let mut a = Person { 
-        id: 100, name: "masuda", age: 50, addr: "Tokyo" };
+    let mut a = Person { name: "masuda", age: 50 };
     // 可変の変数xで参照する
     let mut x = &mut a ;
     println!("x is {:?}", x );
@@ -121,8 +111,7 @@ fn main8() {
 
 fn main9() {
     // 可変の変数aを作る
-    let mut a = Person { 
-        id: 100, name: "masuda", age: 50, addr: "Tokyo" };
+    let a = Person { name: "masuda", age: 50 };
     // 可変の変数xに所有権を移す
     let mut x = a ;
     println!("x is {:?}", x );
@@ -183,10 +172,9 @@ fn main13() {
 }
 
 // 変数aをxとyで所有権を争う例
-fn main() {
+fn main14() {
     // 変数aを作る
-    let a = Person { 
-        id: 100, name: "masuda", age: 50, addr: "Tokyo" };
+    let a = Person { name: "masuda", age: 50 };
     println!("a is {:?}", a );
     // 変数xが参照する
     let x = &a;
