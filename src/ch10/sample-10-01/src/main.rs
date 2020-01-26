@@ -15,10 +15,9 @@ fn move_a( a: Person ) {
 // Person 構造体の内容を変更する
 fn add_age( a: &mut Person ) {
     a.age += 1 ;
-    println!("a.age is {}", a.age ) ;
 }
 
-fn main() {
+fn main1() {
     let a = Person { name: "masuda", age: 50 };
     // 借用させる
     print_a( &a );
@@ -39,10 +38,8 @@ fn main3() {
     // 変数xに参照（借用）させる
     let x = &a ;
     // 変数a,xの両方が使える
-    println!("変数a の場合");
-    print_a( &a );
-    println!("変数x の場合");
-    print_a( &x );
+    println!("a is {:?}", a );
+    println!("x is {:?}", x );
 }
 
 fn main4() {
@@ -50,54 +47,49 @@ fn main4() {
     // 変数xに所有権をmoveする
     let x = a ;
     // 変数aは使えない
-    // println!("変数a の場合");
-    // print_a( &a );
-    // 変数aに所有権がないので変数aにmoveすることもできない
+    // println!("a is {:?}", a );
+    println!("x is {:?}", x );
+}
+
+fn main44() {
+    let a = Person { name: "masuda", age: 50 };
+    // 変数xに所有権をmoveする
+    let x = a ;
     // let y = a ;
-    // 変数xは使える
-    println!("変数x の場合");
-    print_a( &x );
+    // println!("a is {:?}", a );
+    println!("x is {:?}", x );
+    // println!("y is {:?}", y );
 }
 
 
 fn main5() {
-    // 可変の変数aを作る
     let mut a = Person { name: "masuda", age: 50 };
-
     println!("a is {:?}", a );
-    // add_age関数に参照を渡す
     add_age( &mut a );
     println!("a is {:?}", a );
 }
 
 
 fn main6() {
-    // 可変の変数aを作る
     let a = Person { name: "masuda", age: 50 };
-    // 所有権を変数xに移す
     let mut x = a ;
     println!("x is {:?}", x );
-    // 変数xをadd_age関数で変更する
     add_age( &mut x );
     println!("x is {:?}", x );
-    // 既に変数aに所有権はないので、add_age関数を呼び出せない
     // add_age( &mut a );
     // println!("a is {:?}", a );
 }
 
 
 fn main7() {
-    // 可変の変数aを作る
     let a = Person { name: "masuda", age: 50 };
-    // 変数xを可変で参照しようとする
     let mut x = &a ;
     println!("x is {:?}", x );
-    // もともと変数aは不変なので変更できない。
     // x.age += 1 ;
     // println!("x is {:?}", x );
 }
 
-fn main8() {
+fn main() {
     // 可変の変数aを作る
     let mut a = Person { name: "masuda", age: 50 };
     // 可変の変数xで参照する
@@ -155,9 +147,8 @@ fn main12() {
     // ベクタの場合は x に所有権が移動（move）される
     let x = a ;
     println!("x[] is {:?}", x );
-    // 所有権がないので、y に代入できない
-    // let y = a ;
-    // println!("y[] is {:?}", y );
+    // 所有権がないので、変数aを使えない
+    // println!("a[] is {:?}", a )
 }
 
 fn main13() {
@@ -171,8 +162,31 @@ fn main13() {
     println!("a[] is {:?}", a )
 }
 
-// 変数aをxとyで所有権を争う例
 fn main14() {
+    // 文字列の場合
+    let a = String::from("masuda");
+    println!("a is {}", a );
+    // 文字列の場合は x に所有権が移動（move）される
+    let x = a ;
+    println!("x is {}", x );
+    // 所有権がないので、変数aは使えない
+    // println!("a is {}", a );
+}
+
+fn main15() {
+    // 文字列の場合
+    let a = String::from("masuda");
+    println!("a is {}", a );
+    // 文字列の場合も参照ならば大丈夫
+    let x = &a ;
+    println!("x is {}", x );
+    // もう一度、変数aが使える
+    println!("a is {}", a );
+}
+
+
+// 変数aをxとyで所有権を争う例
+fn main16() {
     // 変数aを作る
     let a = Person { name: "masuda", age: 50 };
     println!("a is {:?}", a );
