@@ -1,6 +1,6 @@
 // GET呼び出し
 #[tokio::main]
-async fn main1() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let name = "masuda";
     let age = 50 ;
     let url = format!("http://localhost/rust/get.php?name={}&age={}", name, age );
@@ -14,7 +14,7 @@ async fn main1() -> Result<(), Box<dyn std::error::Error>> {
 // POST呼び出し
 // 適当なPOST用のURLを用意しておく
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main2() -> Result<(), Box<dyn std::error::Error>> {
     let params = [("name", "masuda"), ("age", "50")];
     let client = reqwest::Client::new();
     let url = "http://localhost/rust/post.php";

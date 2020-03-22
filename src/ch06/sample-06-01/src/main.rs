@@ -46,8 +46,8 @@ fn main() {
     let x = if a < b { 1 } else { 0 } ;
     println!("x is {}", x );
     // if で値を返す（コンパイルエラー）
-    let x = if a < b { 1 } else { "hello" } ;
-    println!("x is {}", x );
+    // let x = if a < b { 1 } else { "hello" } ;
+    // println!("x is {}", x );
 
 }
 

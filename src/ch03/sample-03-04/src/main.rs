@@ -5,7 +5,7 @@ fn main() {
     println!("x is {}", x ); 
 
     let name = get_person_name();
-    let age = get_person_age();
+    let mut age = get_person_age();
     //
     // 個々に色々な処理が入る
     // 年齢が50以上だったら、50に入れ直す

@@ -10,7 +10,7 @@ tokio = { version = "0.2", features = ["full"] }
  */
 // URL呼び出し
 #[tokio::main]
-async fn main1() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let url = "http://openccpm.com/blog/" ;
     println!("call {}", url );
     let res = reqwest::get( url ).await? ;
@@ -55,7 +55,7 @@ async fn main3() -> Result<(), Box<dyn std::error::Error>> {
 
 // 存在しないサーバーで検索
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main4() -> Result<(), Box<dyn std::error::Error>> {
     let url = "http://unknown.openccpm.com/blog" ;
     println!("call {}", url );
     if let Ok(res) = reqwest::get( url ).await {
